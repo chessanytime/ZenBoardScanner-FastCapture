@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>ZenBoardScanner Fast Capture</title>
+<title>Zen Board Scanner</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 <script async src="https://docs.opencv.org/4.x/opencv.js" onload="window.cvScriptLoaded=true" onerror="window.cvScriptFailed=true"></script>
 <style>
@@ -29,7 +29,7 @@ small{color:var(--mut)}
 </style>
 </head>
 <body>
-<h1>ZenBoardScanner · Fast Capture</h1>
+<h1>Zen Board Scanner</h1>
 <p>Capture a clean board photo after each position change. This version does not load ONNX, read pieces, identify moves, or build a PGN.</p>
 <section class="panel">
  <div class="row"><button class="primary" id="startCamera">Start camera</button><button id="switchCamera">Switch camera</button><button id="autoFind">Auto-detect board</button></div>
@@ -222,11 +222,11 @@ function pauseMonitoring(){
 async function downloadPhotos(){
  if(!photos.length)return;
  if(!window.JSZip){say('ZIP library did not load. Reload with an internet connection.');return}
- const zip=new JSZip(),folder=zip.folder('ZenBoardScanner-FastCapture');
+ const zip=new JSZip(),folder=zip.folder('Zen Board Scanner');
  photos.forEach(p=>folder.file(p.name,p.data.split(',')[1],{base64:true}));
  folder.file('capture-log.txt',photos.map((p,i)=>(i+1)+'. '+p.name+' | '+p.timestamp).join('\n'));
  const blob=await zip.generateAsync({type:'blob',compression:'DEFLATE',compressionOptions:{level:4}});
- const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='board-photos-'+stamp(new Date())+'.zip';a.click();setTimeout(()=>URL.revokeObjectURL(url),3000);
+ const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='zen-board-scanner-photos-'+stamp(new Date())+'.zip';a.click();setTimeout(()=>URL.revokeObjectURL(url),3000);
  say('Downloaded '+photos.length+' board photo(s) in a ZIP file.');
 }
 function clearPhotos(){
